@@ -21,7 +21,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             groupId = 'com.heonydev'
-            artifactId = 'heonygen'
+            artifactId = 'heonygen-plugin'
         }
     }
     repositories {
