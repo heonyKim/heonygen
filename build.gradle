@@ -4,8 +4,36 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.heonydev.heonygen'
+group = 'com.heonydev'
 version = '0.0.1'
+
+gradlePlugin {
+    plugins {
+        heonygen {
+            id = 'com-heonydev-heonygen'        //플러그인 ID
+            implementationClass = 'com.heonydev.heonygen.HeonygenPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = 'com.heonydev'
+            artifactId = 'heonygen'
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/heonyKim/heonygen")  // GitHub URL 설정
+            credentials {
+
+            }
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -17,31 +45,4 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.3.5'
     implementation 'org.reflections:reflections:0.10.2'
-}
-
-gradlePlugin {
-    plugins {
-        heonygenPlugin {
-            id = 'com.heonydev.heonygen'        //플러그인 ID
-            implementationClass = 'com.heonydev.heonygen.HeonygenPlugin'
-        }
-    }
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/username/repository")  // GitHub URL 설정
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
 }
