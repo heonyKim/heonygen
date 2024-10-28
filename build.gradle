@@ -5,12 +5,12 @@ plugins {
 }
 
 group = 'com.heonydev'
-version = '0.0.1'
+version = '0.0.2'
 
 gradlePlugin {
     plugins {
         heonygen {
-            id = 'com-heonydev-heonygen'        //플러그인 ID
+            id = 'com.heonydev.heonygen'        //플러그인 ID
             implementationClass = 'com.heonydev.heonygen.HeonygenPlugin'
         }
     }
@@ -20,18 +20,10 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            groupId = 'com.heonydev'
-            artifactId = 'heonygen-plugin'
         }
     }
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/heonyKim/heonygen")  // GitHub URL 설정
-            credentials {
-
-            }
-        }
+        mavenLocal() // 로컬배포
     }
 }
 
